@@ -1,9 +1,36 @@
 ﻿@page
-@model IndexModel
+@model WebApplication1.Pages.IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <a class="btn btn-primary btn-lg" asp-page="/Login">Go to Login</a>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/index.css">
+</head>
+<body>
+    <div class="welcome-container">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert-success">
+                ✓ @TempData["SuccessMessage"]
+            </div>
+        }
+
+        <h1>Welcome, @Model.Username! 🎉</h1>
+
+        <div class="user-info">
+            <p><strong>Email:</strong> @Model.Email</p>
+            <p><strong>Role:</strong> @Model.Role</p>
+        </div>
+
+        <form method="post" asp-page-handler="Logout">
+            <button type="submit" class="btn-logout">Logout</button>
+        </form>
+    </div>
+</body>
+</html>

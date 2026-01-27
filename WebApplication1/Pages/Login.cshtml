@@ -14,15 +14,28 @@
     <link rel="stylesheet" href="~/css/login.css">
 </head>
 <body>
-    <div class="container" id="container">
+    <!-- Fixed: Proper conditional class syntax -->
+    <div class="container @(ViewData["ShowRegisterPanel"] != null ? "right-panel-active" : "")" id="container">
+
         <!-- Registration Form -->
         <div class="form-container sign-up-container">
             <form method="post" asp-page-handler="Register">
                 <h1>Create Account</h1>
+
+                @if (ViewData["RegisterSuccess"] != null)
+                {
+                    <div class="text-success" style="background-color: #d4edda; color: #155724; padding: 15px; margin: 15px 0; border-radius: 10px; text-align: center;">
+                        <strong>✓ Success!</strong><br />
+                        @ViewData["RegisterSuccess"]<br />
+                        <small>Click "Sign In" below to login</small>
+                    </div>
+                }
+
                 <input type="text" name="FullName" placeholder="Full Name" required />
                 <input type="email" name="Email" placeholder="Email" required />
                 <input type="password" name="Password" placeholder="Password" required />
                 <button type="submit">Sign Up</button>
+
                 @if (ViewData["RegisterError"] != null)
                 {
                     <div class="text-danger">@ViewData["RegisterError"]</div>
@@ -36,7 +49,7 @@
                 <h1>Sign In</h1>
                 <input type="email" name="Email" placeholder="Email" required />
                 <input type="password" name="Password" placeholder="Password" required />
-                <a href="#" class="forgot-password">Forgot your password?</a>
+                <a href="/ForgotPassword" class="forgot-password">Forgot your password?</a>
                 <button type="submit">Sign In</button>
                 @if (ViewData["LoginError"] != null)
                 {

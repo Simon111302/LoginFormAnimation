@@ -1,20 +1,21 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace WebApplication1.Pages
 {
-    public class IndexModel : PageModel
+    public class DashboardModel : PageModel
     {
         public string? Username { get; set; }
         public string? Email { get; set; }
         public string? Role { get; set; }
+        public int? UserId { get; set; }
 
         public IActionResult OnGet()
         {
             // Check if user is logged in
-            var userId = HttpContext.Session.GetInt32("UserId");
+            UserId = HttpContext.Session.GetInt32("UserId");
 
-            if (userId == null)
+            if (UserId == null)
             {
                 // Not logged in, redirect to login page
                 return RedirectToPage("/Login");

@@ -1,0 +1,44 @@
+﻿@page
+@model WebApplication1.Pages.DashboardModel
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = null;
+    <!-- This removes the default layout -->
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <div class="welcome-card">
+            <h1>Welcome to Dashboard! 🎉</h1>
+            <p class="subtitle">You have successfully logged in</p>
+
+            <div class="user-info">
+                <div class="info-row">
+                    <span class="label">Username:</span>
+                    <span class="value">@Model.Username</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Email:</span>
+                    <span class="value">@Model.Email</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Role:</span>
+                    <span class="value badge">@Model.Role</span>
+                </div>
+            </div>
+
+            <form method="post" asp-page-handler="Logout">
+                <button type="submit" class="btn-logout">LOGOUT</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

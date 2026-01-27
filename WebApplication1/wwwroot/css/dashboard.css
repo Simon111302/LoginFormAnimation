@@ -1,0 +1,148 @@
+﻿/* Simple Dashboard CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(-45deg, #0f0f23, #2c2c54, #00d4ff, #00ff88);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.dashboard-wrapper {
+    width: 100%;
+    max-width: 550px;
+    padding: 20px;
+}
+
+.welcome-card {
+    background: white;
+    padding: 60px 50px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+h1 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.subtitle {
+    color: #999;
+    font-size: 15px;
+    margin-bottom: 40px;
+}
+
+.user-info {
+    background: #f8f9fa;
+    padding: 25px 30px;
+    border-radius: 12px;
+    margin-bottom: 35px;
+    text-align: left;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+    .info-row:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .info-row:first-child {
+        padding-top: 0;
+    }
+
+.label {
+    font-weight: 600;
+    color: #555;
+    font-size: 15px;
+}
+
+.value {
+    color: #333;
+    font-size: 15px;
+}
+
+.badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-logout {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    color: white;
+    border: none;
+    padding: 14px 45px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+    .btn-logout:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(255, 65, 108, 0.4);
+    }
+
+    .btn-logout:active {
+        transform: scale(0.98);
+    }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .welcome-card {
+        padding: 40px 30px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    .user-info {
+        padding: 20px;
+    }
+
+    .btn-logout {
+        padding: 12px 35px;
+        font-size: 13px;
+    }
+}
