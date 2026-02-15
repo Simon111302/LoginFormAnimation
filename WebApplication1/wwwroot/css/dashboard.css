@@ -1,148 +1,217 @@
-﻿/* Simple Dashboard CSS */
-* {
+﻿* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+:root {
+    --text-primary: #0f172a;
+    --text-muted: #64748b;
+    --surface: rgba(255, 255, 255, 0.86);
+    --surface-strong: #ffffff;
+    --border: rgba(148, 163, 184, 0.25);
+}
+
 body {
-    background: linear-gradient(-45deg, #0f0f23, #2c2c54, #00d4ff, #00ff88);
-    background-size: 400% 400%;
-    animation: gradientShift 15s ease infinite;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 30px 18px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-@keyframes gradientShift {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
+    color: var(--text-primary);
+    background: radial-gradient(circle at 20% 20%, #60a5fa 0%, transparent 40%),
+        radial-gradient(circle at 80% 10%, #a78bfa 0%, transparent 45%),
+        radial-gradient(circle at 50% 90%, #34d399 0%, transparent 40%),
+        linear-gradient(140deg, #020617 10%, #0f172a 55%, #1e293b 100%);
 }
 
 .dashboard-wrapper {
     width: 100%;
-    max-width: 550px;
-    padding: 20px;
+    max-width: 760px;
 }
 
 .welcome-card {
-    background: white;
-    padding: 60px 50px;
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-radius: 28px;
+    padding: 40px;
+    background: var(--surface);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border);
+    box-shadow: 0 24px 55px rgba(2, 6, 23, 0.45);
+}
+
+.card-glow {
+    position: absolute;
+    top: -80px;
+    right: -90px;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.35), transparent 70%);
+    pointer-events: none;
+}
+
+.card-header {
+    position: relative;
+    margin-bottom: 28px;
+}
+
+.eyebrow {
+    display: inline-block;
+    margin-bottom: 8px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #2563eb;
+    font-weight: 700;
 }
 
 h1 {
-    font-size: 32px;
-    color: #333;
+    font-size: 34px;
+    line-height: 1.15;
     margin-bottom: 10px;
-    font-weight: 600;
 }
 
 .subtitle {
-    color: #999;
+    color: var(--text-muted);
     font-size: 15px;
-    margin-bottom: 40px;
+}
+
+.quick-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.stat-item {
+    background: var(--surface-strong);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 12px;
+}
+
+.stat-label {
+    display: block;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+.stat-value {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.stat-value.positive {
+    color: #16a34a;
 }
 
 .user-info {
-    background: #f8f9fa;
-    padding: 25px 30px;
-    border-radius: 12px;
-    margin-bottom: 35px;
-    text-align: left;
+    background: var(--surface-strong);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 10px 22px;
+    margin-bottom: 26px;
 }
 
 .info-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid #e8e8e8;
+    gap: 12px;
+    padding: 16px 0;
+    border-bottom: 1px solid #e2e8f0;
 }
 
-    .info-row:last-child {
-        border-bottom: none;
-        padding-bottom: 0;
-    }
-
-    .info-row:first-child {
-        padding-top: 0;
-    }
+.info-row:last-child {
+    border-bottom: none;
+}
 
 .label {
     font-weight: 600;
-    color: #555;
-    font-size: 15px;
+    color: #334155;
+    font-size: 14px;
 }
 
 .value {
-    color: #333;
-    font-size: 15px;
+    text-align: right;
+    font-size: 14px;
+    color: #0f172a;
+    font-weight: 500;
 }
 
 .badge {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 6px 18px;
-    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 92px;
+    padding: 7px 16px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: #ffffff;
     font-size: 12px;
-    font-weight: 600;
+    letter-spacing: 0.7px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    font-weight: 700;
+}
+
+.action-row {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .btn-logout {
-    background: linear-gradient(135deg, #ff416c, #ff4b2b);
-    color: white;
     border: none;
-    padding: 14px 45px;
-    border-radius: 25px;
-    font-size: 14px;
+    border-radius: 999px;
+    padding: 12px 30px;
+    background: linear-gradient(135deg, #ef4444, #f97316);
+    color: #ffffff;
     font-weight: 700;
+    letter-spacing: 0.7px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-    .btn-logout:hover {
-        transform: scale(1.05);
-        box-shadow: 0 8px 20px rgba(255, 65, 108, 0.4);
-    }
+.btn-logout:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3);
+}
 
-    .btn-logout:active {
-        transform: scale(0.98);
-    }
+.btn-logout:active {
+    transform: translateY(0);
+}
 
-/* Responsive */
 @media (max-width: 768px) {
     .welcome-card {
-        padding: 40px 30px;
+        padding: 28px 22px;
+        border-radius: 22px;
     }
 
     h1 {
-        font-size: 26px;
+        font-size: 28px;
     }
 
-    .user-info {
-        padding: 20px;
+    .quick-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .info-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .value {
+        text-align: left;
+    }
+
+    .action-row {
+        justify-content: center;
     }
 
     .btn-logout {
-        padding: 12px 35px;
-        font-size: 13px;
+        width: 100%;
     }
 }
