@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Dashboard";
     Layout = null;
-    <!-- This removes the default layout -->
 }
 
 <!DOCTYPE html>
@@ -17,26 +16,45 @@
 <body>
     <div class="dashboard-wrapper">
         <div class="welcome-card">
-            <h1>Welcome to Dashboard! 🎉</h1>
-            <p class="subtitle">You have successfully logged in</p>
+            <div class="card-glow"></div>
+            <header class="card-header">
+                <p class="eyebrow">Control Center</p>
+                <h1>Welcome back, @Model.Username 👋</h1>
+                <p class="subtitle">Your account is active and everything is running smoothly.</p>
+            </header>
+
+            <section class="quick-stats" aria-label="Quick dashboard stats">
+                <article class="stat-item">
+                    <span class="stat-label">Account status</span>
+                    <span class="stat-value positive">Online</span>
+                </article>
+                <article class="stat-item">
+                    <span class="stat-label">Role</span>
+                    <span class="stat-value">@Model.Role</span>
+                </article>
+                <article class="stat-item">
+                    <span class="stat-label">Security</span>
+                    <span class="stat-value">Protected</span>
+                </article>
+            </section>
 
             <div class="user-info">
                 <div class="info-row">
-                    <span class="label">Username:</span>
+                    <span class="label">Username</span>
                     <span class="value">@Model.Username</span>
                 </div>
                 <div class="info-row">
-                    <span class="label">Email:</span>
+                    <span class="label">Email</span>
                     <span class="value">@Model.Email</span>
                 </div>
                 <div class="info-row">
-                    <span class="label">Role:</span>
+                    <span class="label">Role</span>
                     <span class="value badge">@Model.Role</span>
                 </div>
             </div>
 
-            <form method="post" asp-page-handler="Logout">
-                <button type="submit" class="btn-logout">LOGOUT</button>
+            <form method="post" asp-page-handler="Logout" class="action-row">
+                <button type="submit" class="btn-logout">Logout</button>
             </form>
         </div>
     </div>

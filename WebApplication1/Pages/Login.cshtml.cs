@@ -103,6 +103,7 @@ namespace WebApplication1.Pages
                 {
                     Console.WriteLine("ERROR: Missing fields");
                     ViewData["RegisterError"] = "All fields are required.";
+                    ViewData["ShowRegisterPanel"] = true;
                     return Page();
                 }
 
@@ -111,6 +112,7 @@ namespace WebApplication1.Pages
                 {
                     Console.WriteLine("ERROR: Invalid email format");
                     ViewData["RegisterError"] = "Please enter a valid email address.";
+                    ViewData["ShowRegisterPanel"] = true;
                     return Page();
                 }
 
@@ -119,6 +121,7 @@ namespace WebApplication1.Pages
                 {
                     Console.WriteLine("ERROR: Password too short");
                     ViewData["RegisterError"] = "Password must be at least 8 characters.";
+                    ViewData["ShowRegisterPanel"] = true;
                     return Page();
                 }
 
@@ -132,6 +135,7 @@ namespace WebApplication1.Pages
                 {
                     Console.WriteLine("ERROR: User already exists");
                     ViewData["RegisterError"] = "User with this email or username already exists.";
+                    ViewData["ShowRegisterPanel"] = true;
                     return Page();
                 }
 
@@ -173,6 +177,7 @@ namespace WebApplication1.Pages
                 Console.WriteLine($"Inner Exception: {ex.InnerException?.Message}");
                 _logger.LogError(ex, "Database error during registration");
                 ViewData["RegisterError"] = "Database error. Check console output.";
+                ViewData["ShowRegisterPanel"] = true;
                 return Page();
             }
             catch (Exception ex)
@@ -181,6 +186,7 @@ namespace WebApplication1.Pages
                 Console.WriteLine($"Stack trace: {ex.StackTrace}");
                 _logger.LogError(ex, "Error during registration");
                 ViewData["RegisterError"] = $"Error: {ex.Message}";
+                ViewData["ShowRegisterPanel"] = true;
                 return Page();
             }
         }
