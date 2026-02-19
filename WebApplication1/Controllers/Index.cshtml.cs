@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using WebApplication1.Helpers;
 
 namespace WebApplication1.Pages
 {
@@ -11,29 +12,22 @@ namespace WebApplication1.Pages
 
         public IActionResult OnGet()
         {
-            // Check if user is logged in
-            var userId = HttpContext.Session.GetInt32("UserId");
-
-            if (userId == null)
+            if (!SessionUserHelper.IsAuthenticated(HttpContext.Session))
             {
-                // Not logged in, redirect to login page
                 return RedirectToPage("/Login");
             }
 
-            // Get user info from session
-            Username = HttpContext.Session.GetString("Username") ?? "Guest";
-            Email = HttpContext.Session.GetString("Email") ?? "N/A";
-            Role = HttpContext.Session.GetString("Role") ?? "N/A";
+            var user = SessionUserHelper.GetUserContext(HttpContext.Session);
+            Username = user.Username;
+            Email = user.Email;
+            Role = user.Role;
 
             return Page();
         }
 
         public IActionResult OnPostLogout()
         {
-            // Clear all session data
-            HttpContext.Session.Clear();
-
-            // Redirect back to login page
+            SessionUserHelper.Logout(HttpContext.Session);
             return RedirectToPage("/Login");
         }
     }
