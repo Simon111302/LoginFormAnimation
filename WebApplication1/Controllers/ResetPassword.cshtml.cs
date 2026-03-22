@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Data;
-using BCrypt.Net;
+using WebApplication1.Helpers;
 
 namespace WebApplication1.Pages
 {
@@ -38,8 +38,7 @@ namespace WebApplication1.Pages
                 return Page();
             }
 
-            var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.ResetToken == Token);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.ResetToken == Token);
 
             if (user == null || user.ResetTokenExpiry < DateTime.Now)
             {
@@ -60,15 +59,14 @@ namespace WebApplication1.Pages
                 return Page();
             }
 
-            if (NewPassword.Length < 6)
+            if (!PasswordHelper.IsValidLength(NewPassword))
             {
-                Message = "Password must be at least 6 characters!";
+                Message = $"Password must be at least {PasswordHelper.MinLength} characters!";
                 IsSuccess = false;
                 return Page();
             }
 
-            var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.ResetToken == Token);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.ResetToken == Token);
 
             if (user == null || user.ResetTokenExpiry < DateTime.Now)
             {
@@ -78,7 +76,6 @@ namespace WebApplication1.Pages
                 return Page();
             }
 
-            // Update password
             user.Password = BCrypt.Net.BCrypt.HashPassword(NewPassword);
             user.ResetToken = null;
             user.ResetTokenExpiry = null;
@@ -87,8 +84,6 @@ namespace WebApplication1.Pages
 
             Message = "Password reset successful! Redirecting to login...";
             IsSuccess = true;
-
-            // Redirect after 2 seconds
             Response.Headers.Add("Refresh", "2; url=/Login");
 
             return Page();

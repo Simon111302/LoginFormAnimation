@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Data;
+using WebApplication1.Helpers;
 using WebApplication1.Services;
 
 namespace WebApplication1.Pages
@@ -33,14 +34,11 @@ namespace WebApplication1.Pages
         public bool IsSuccess { get; set; }
         public bool CodeSent { get; set; }
 
-        public void OnGet()
-        {
-        }
+        public void OnGet() { }
 
         public async Task<IActionResult> OnPostSendCodeAsync()
         {
-            var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.Email == Email);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == Email);
 
             if (user == null)
             {
@@ -50,7 +48,6 @@ namespace WebApplication1.Pages
                 return Page();
             }
 
-            // Generate 6-digit code
             var random = new Random();
             var code = random.Next(100000, 999999).ToString();
 
@@ -87,15 +84,14 @@ namespace WebApplication1.Pages
                 return Page();
             }
 
-            if (NewPassword.Length < 6)
+            if (!PasswordHelper.IsValidLength(NewPassword))
             {
-                Message = "Password must be at least 6 characters!";
+                Message = $"Password must be at least {PasswordHelper.MinLength} characters!";
                 IsSuccess = false;
                 return Page();
             }
 
-            var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.Email == Email);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == Email);
 
             if (user == null || user.VerificationCode != VerificationCode)
             {
@@ -111,7 +107,6 @@ namespace WebApplication1.Pages
                 return Page();
             }
 
-            // Update password
             user.Password = BCrypt.Net.BCrypt.HashPassword(NewPassword);
             user.VerificationCode = null;
             user.VerificationCodeExpiry = null;
@@ -122,8 +117,6 @@ namespace WebApplication1.Pages
 
             Message = "Password reset successful! Redirecting to login...";
             IsSuccess = true;
-
-            // Redirect after 2 seconds
             Response.Headers.Add("Refresh", "2; url=/Login");
 
             return Page();

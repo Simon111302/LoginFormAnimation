@@ -4,7 +4,10 @@ using WebApplication1.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options =>
+{
+    options.RootDirectory = "/Views";
+});
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
